@@ -1,0 +1,58 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd"
+        logicalFilePath="user">
+
+    <changeSet author="ckl" id="create user">
+        <createTable tableName="USER">
+            <column name="ID" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="TIMESTAMP" type="TIMESTAMP" defaultValueComputed="now()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR"/>
+            <column name="PASSWORD" type="VARCHAR"/>
+            <column name="STATUS" type="VARCHAR"/>
+        </createTable>
+        <createIndex tableName="USER" indexName="USER_ID_IDX">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex tableName="USER" indexName="USER_NAME_IDX">
+            <column name="NAME"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="create user_roles" author="ckl">
+        <createTable tableName="USER_ROLES">
+            <column name="ID" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="TIMESTAMP" type="TIMESTAMP" defaultValueComputed="now()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="USER" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ROLE" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint constraintName="USER_ROLES__USER_FK"
+                                 baseTableName="USER_ROLES" baseColumnNames="USER"
+                                 referencedTableName="USER" referencedColumnNames="ID"/>
+        <createIndex tableName="USER_ROLES" indexName="USER_ROLES__USER_IDC">
+            <column name="USER"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="init data" author="ckl">
+        <sql>
+            INSERT INTO user (NAME,PASSWORD,STATUS) VALUES
+            ('ckl','$2a$10$EblZqNptyYvcLm/VwDCVAuBjzZOI7khzdyGPBr08PpIi0na624b8.','ENABLED');
+            INSERT INTO user_roles (USER,ROLE) VALUES ((SELECT id FROM user WHERE name = 'ckl'), 'ROLE_ADMIN');
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
