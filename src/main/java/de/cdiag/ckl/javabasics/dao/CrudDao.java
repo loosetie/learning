@@ -1,23 +1,21 @@
 package de.cdiag.ckl.javabasics.dao;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import de.cdiag.ckl.javabasics.jooq.tables.pojos.App;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by CKL on 17.03.2017.
  */
 public interface CrudDao<T> {
 
-    List<T> all();
+	List<T> all();
 
-    T store(T entity);
+	T store( T entity );
 
-    T get(Long id);
+	Optional<App> get( Long id );
 
-    T delete(Long id);
+	int delete( Long id );
 
 }

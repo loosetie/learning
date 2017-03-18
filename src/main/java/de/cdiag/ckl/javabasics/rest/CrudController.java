@@ -11,19 +11,19 @@ import java.util.List;
  */
 public interface CrudController<T> {
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    HttpEntity<List<T>> all();
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	HttpEntity<List<T>> all();
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    HttpEntity<T> create(T entity);
+	@RequestMapping(value = "", method = RequestMethod.POST)
+	HttpEntity<T> create( T entity );
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    HttpEntity<T> get(Long id);
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	HttpEntity<T> get( Long id );
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    HttpEntity<T> put(T entity);
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	HttpEntity<T> update( T entity );
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    HttpEntity<T> delete(Long id);
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	HttpEntity<?> delete( Long id );
 
 }

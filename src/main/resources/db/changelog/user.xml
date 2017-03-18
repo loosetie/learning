@@ -47,7 +47,7 @@
         </createIndex>
     </changeSet>
 
-    <changeSet id="init data" author="ckl">
+	<changeSet id="init data" author="ckl" dbms="h2">
         <sql>
             INSERT INTO user (NAME,PASSWORD,STATUS) VALUES
             ('ckl','$2a$10$EblZqNptyYvcLm/VwDCVAuBjzZOI7khzdyGPBr08PpIi0na624b8.','ENABLED');

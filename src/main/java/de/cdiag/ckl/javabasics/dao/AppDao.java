@@ -10,44 +10,46 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-/** Created by CKL on 17.03.2017.
+/**
+ * Created by CKL on 17.03.2017.
  */
 @Service
 @RequiredArgsConstructor
 public class AppDao implements CrudDao<App> {
 
-    private final DSLContext dsl;
+	private final DSLContext dsl;
 
-    @Override
-    public List<App> all() {
-        return dsl.selectFrom(Tables.APP)
-                .fetchInto(App.class);
-    }
+	@Override
+	public List<App> all() {
+		return dsl.selectFrom( Tables.APP )
+						 .fetchInto( App.class );
+	}
 
-    @Override
-    public App store(App entity) {
-        AppRecord record = Optional.ofNullable(getImpl(entity.getId()))
-                .orElse(dsl.newRecord(Tables.APP));
-        record.from(entity);
-        record.store(); // Make use of listeners
-        return record.into(App.class);
-    }
+	@Override
+	public App store( App entity ) {
+		AppRecord record = getImpl( entity.getId() )
+												 .orElse( dsl.newRecord( Tables.APP ) );
+		record.from( entity );
+		record.store(); // Make use of listeners
+		return record.into( App.class );
+	}
 
-    @Override
-    public App get(Long id) {
-        return getImpl(id).into(App.class);
-    }
+	@Override
+	public Optional<App> get( Long id ) {
+		return getImpl( id )
+						 .map( r -> r.into( App.class ) );
+	}
 
-    private AppRecord getImpl(Long id) {
-        return dsl.selectFrom(Tables.APP)
-                .where(Tables.APP.ID.eq(id))
-                .fetchOne();
-    }
+	private Optional<AppRecord> getImpl( Long id ) {
+		return dsl.selectFrom( Tables.APP )
+						 .where( Tables.APP.ID.eq( id ) )
+						 .fetchOptional();
+	}
 
-    @Override
-    public App delete(Long id) {
-        return dsl.selectFrom(Tables.APP)
-                .where(Tables.APP.ID.eq(id))
-                .fetchOneInto(App.class);
-    }
+	@Override
+	public int delete( Long id ) {
+		return dsl.deleteFrom( Tables.APP )
+						 .where( Tables.APP.ID.eq( id ) )
+						 .execute();
+	}
 }
