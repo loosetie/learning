@@ -1,6 +1,6 @@
 package de.cdiag.ckl.javabasics.dao;
 
-import de.cdiag.ckl.javabasics.jooq.tables.pojos.App;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,12 +10,16 @@ import java.util.Optional;
  */
 public interface CrudDao<T> {
 
-	List<T> all();
-
+	@Transactional
 	T store( T entity );
 
-	Optional<App> get( Long id );
+	@Transactional(readOnly = true)
+	List<T> all();
 
+	@Transactional(readOnly = true)
+	Optional<T> get( Long id );
+
+	@Transactional
 	int delete( Long id );
 
 }

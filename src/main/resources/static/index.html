@@ -13,9 +13,9 @@
 <body ng-app="JavaBasics" ng-cloak class="ng-cloak">
 	<div ng-controller="navigation" class="container">
 		<ul class="nav nav-pills" role="tablist">
-			<li class="active"><a href="#/">home</a></li>
-			<li ng-show="!authenticated"><a href="#!/login">login</a></li>
-			<li ng-show="authenticated"><a href="#!/app">Apps</a></li>
+			<li ng-class="active('/', true)"><a href="#/">home</a></li>
+			<li ng-class="active('/app')" ng-show="authenticated"><a href="#!/app">Apps</a></li>
+			<li ng-class="active('/login')" ng-show="!authenticated"><a href="#!/login">login</a></li>
 			<li ng-show="authenticated"><a href="" ng-click="logout()">logout</a></li>
 		</ul>
 	</div>

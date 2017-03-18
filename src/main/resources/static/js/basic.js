@@ -74,6 +74,14 @@ angular.module( 'JavaBasics.basic', ['ngRoute'] )
 					}
 				);
 			}
+
+			$scope.active = function ( path, strict ) {
+				var p = $location.path();
+				if( !strict ) {
+					p = p.substr( 0, path.length );
+				}
+				return p === path ? 'active' : '';
+			}
 		}
 	)
 ;

@@ -1,11 +1,12 @@
 package de.cdiag.ckl.javabasics.rest;
 
-import de.cdiag.ckl.javabasics.dao.AppDao;
+import de.cdiag.ckl.javabasics.dao.CrudDao;
 import de.cdiag.ckl.javabasics.jooq.tables.pojos.App;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AppRestController implements CrudController<App> {
 
-	private final AppDao appDao;
+	private final CrudDao<App> appDao;
 
 	public HttpEntity<List<App>> all() {
 		List<App> apps = appDao.all();
@@ -31,7 +32,8 @@ public class AppRestController implements CrudController<App> {
 
 	@Override
 	public HttpEntity<App> create( @RequestBody App entity ) {
-		return update( entity );
+		App app = appDao.store( entity );
+		return ResponseEntity.ok( app );
 	}
 
 	@Override
@@ -43,12 +45,14 @@ public class AppRestController implements CrudController<App> {
 	}
 
 	@Override
-	public HttpEntity<App> update( @RequestBody App entity ) {
+	public HttpEntity<App> update( @PathVariable("id") Long id, @RequestBody App entity ) {
+		entity.setId( id );
 		App app = appDao.store( entity );
 		return ResponseEntity.ok( app );
 	}
 
 	@Override
+	@Transactional
 	public HttpEntity<?> delete( @PathVariable("id") Long id ) {
 		int affectedRows = appDao.delete( id );
 		return affectedRows > 0
