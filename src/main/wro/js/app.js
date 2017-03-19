@@ -33,10 +33,10 @@ angular.module( 'JavaBasics.app', ['ngRoute', 'ngResource'] )
 
 	.controller(
 		'apps', function ( $scope, $location, App ) {
-			var apps, load = function () {
-				apps = App.query(
+			var entities, load = function () {
+				entities = App.query(
 					function () {
-						$scope.apps = apps;
+						$scope.entities = entities;
 					}
 				);
 			};
@@ -56,10 +56,10 @@ angular.module( 'JavaBasics.app', ['ngRoute', 'ngResource'] )
 
 	.controller(
 		'create', function ( $scope, $location, App ) {
-			var app = $scope.app = new App();
+			var entity = $scope.entity = new App();
 			$scope.save = function () {
 				App.save(
-					app, function () {
+					entity, function () {
 						$location.path( "/app" );
 					}
 				);
@@ -69,14 +69,14 @@ angular.module( 'JavaBasics.app', ['ngRoute', 'ngResource'] )
 
 	.controller(
 		'edit', function ( $scope, $location, $routeParams, App ) {
-			var app = App.get(
+			var entity = App.get(
 				{id: $routeParams.id}, function () {
-					$scope.app = app;
+					$scope.entity = entity;
 				}
 			);
 			$scope.save = function () {
 				App.update(
-					app, function () {
+					entity, function () {
 						$location.path( "/app" );
 					}
 				);

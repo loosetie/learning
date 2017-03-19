@@ -1,12 +1,14 @@
-<h1>Apps</h1>
+<h1>Templates</h1>
 <div>
 	<table>
 		<tr>
 			<th>Name</th>
+			<th>Apps</th>
 			<th>Actions</th>
 		</tr>
 		<tr ng-repeat="entity in entities">
 			<td>{{entity.name}}</td>
+			<td><span ng-repeat="app in entity.apps">{{app.name}}</span></td>
 			<td>
 				<a href="" ng-click="edit(entity.id)">Edit</a>
 				<a href="" ng-click="delete(entity.id)">Delete</a>

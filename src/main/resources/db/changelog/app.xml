@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd"
 	logicalFilePath="app">
 
-    <changeSet id="LT-8" author="ckl">
+	<changeSet id="LT-8 create app" author="ckl">
         <createTable tableName="APP">
             <column name="ID" type="BIGINT" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
@@ -16,7 +16,7 @@
         </createTable>
     </changeSet>
 
-	<changeSet id="test1" author="ckl" dbms="h2">
+	<changeSet id="app test data" author="ckl" dbms="h2">
         <sql>
             INSERT INTO app (name) VALUES ('Apfel');
             INSERT INTO app (name) VALUES ('Birne');

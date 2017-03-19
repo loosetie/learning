@@ -12,6 +12,7 @@ import java.util.UUID;
  * Created by CKL on 17.03.2017.
  */
 @RestController
+@RequestMapping("")
 public class BasicRestController {
 
 	@RequestMapping("/resource")

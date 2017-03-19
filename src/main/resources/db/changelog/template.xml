@@ -1,0 +1,61 @@
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd"
+	logicalFilePath="template">
+
+	<changeSet id="LT-9 create template" author="cke">
+		<createTable tableName="TEMPLATE">
+			<column name="ID" type="BIGINT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+			<column name="TIMESTAMP" type="TIMESTAMP" defaultValueComputed="now()">
+				<constraints nullable="false"/>
+			</column>
+			<column name="NAME" type="VARCHAR"/>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="LT-9 create template_app" author="cke">
+		<createTable tableName="TEMPLATE_APP">
+			<column name="ID" type="BIGINT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+			<column name="TIMESTAMP" type="TIMESTAMP" defaultValueComputed="now()">
+				<constraints nullable="false"/>
+			</column>
+			<column name="TEMPLATE" type="BIGINT"/>
+			<column name="APP" type="BIGINT"/>
+		</createTable>
+		<addForeignKeyConstraint baseTableName="TEMPLATE_APP" baseColumnNames="TEMPLATE" constraintName="TEMPLATE_APP__TEMPLATE" referencedTableName="TEMPLATE"
+														 referencedColumnNames="ID" onDelete="CASCADE"/>
+		<addForeignKeyConstraint baseTableName="TEMPLATE_APP" baseColumnNames="APP" constraintName="TEMPLATE_APP__APP" referencedTableName="APP"
+														 referencedColumnNames="ID" onDelete="CASCADE"/>
+	</changeSet>
+
+	<changeSet id="template test data" author="ckl" dbms="h2">
+		<sql>
+			INSERT INTO template (name) VALUES ('tpl1');
+			INSERT INTO template (name) VALUES ('tpl2');
+		</sql>
+		<sql>
+			INSERT INTO template_app (template, app) VALUES (
+				(SELECT id
+				FROM template
+				WHERE name = 'tpl1'),
+				(SELECT id
+				FROM app
+				WHERE name = 'Apfel')
+			);
+			INSERT INTO template_app (template, app) VALUES (
+				(SELECT id
+				FROM template
+				WHERE name = 'tpl1'),
+				(SELECT id
+				FROM app
+				WHERE name = 'Birne')
+			);
+		</sql>
+	</changeSet>
+
+</databaseChangeLog>

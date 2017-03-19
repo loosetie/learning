@@ -5,6 +5,10 @@
 			<span>Name</span>
 			<input type="text" ng-model="entity.name" />
 		</label>
+		<label>
+			<span>Apps</span>
+			<div isteven-multi-select input-model="apps" output-model="entity.apps" button-label="name" item-label="id name" tick-property="sel"></div>
+		</label>
 	</div>
 	<div>
 		<button type="submit" ng-click="save()">Save</button>

@@ -1,7 +1,7 @@
 package de.cdiag.ckl.javabasics.dao;
 
+import de.cdiag.ckl.javabasics.entities.AppEntity;
 import de.cdiag.ckl.javabasics.jooq.Tables;
-import de.cdiag.ckl.javabasics.jooq.tables.pojos.App;
 import de.cdiag.ckl.javabasics.jooq.tables.records.AppRecord;
 import de.cdiag.ckl.javabasics.security.TransactionPermission;
 import lombok.RequiredArgsConstructor;
@@ -17,29 +17,29 @@ import java.util.Optional;
 @Service
 @TransactionPermission(read = "USER", write = "APP")
 @RequiredArgsConstructor
-public class AppDao implements CrudDao<App> {
+public class AppDao implements CrudDao<AppEntity> {
 
 	private final DSLContext dsl;
 
 	@Override
-	public App store( App entity ) {
+	public AppEntity store( AppEntity entity ) {
 		AppRecord record = getImpl( entity.getId() )
 												 .orElse( dsl.newRecord( Tables.APP ) );
 		record.from( entity );
 		record.store(); // Make use of listeners
-		return record.into( App.class );
+		return record.into( AppEntity.class );
 	}
 
 	@Override
-	public List<App> all() {
+	public List<AppEntity> all() {
 		return dsl.selectFrom( Tables.APP )
-						 .fetchInto( App.class );
+						 .fetchInto( AppEntity.class );
 	}
 
 	@Override
-	public Optional<App> get( Long id ) {
+	public Optional<AppEntity> get( Long id ) {
 		return getImpl( id )
-						 .map( r -> r.into( App.class ) );
+						 .map( r -> r.into( AppEntity.class ) );
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 package de.cdiag.ckl.javabasics.rest;
 
 import de.cdiag.ckl.javabasics.dao.CrudDao;
-import de.cdiag.ckl.javabasics.entities.AppEntity;
+import de.cdiag.ckl.javabasics.entities.TemplateEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -19,36 +19,36 @@ import java.util.Optional;
  * Created by CKL on 17.03.2017.
  */
 @RestController
-@RequestMapping("/rest/v1/app")
+@RequestMapping("/rest/v1/tpl")
 @RequiredArgsConstructor
-public class AppRestController implements CrudController<AppEntity> {
+public class TemplateRestController implements CrudController<TemplateEntity> {
 
-	private final CrudDao<AppEntity> dao;
+	private final CrudDao<TemplateEntity> dao;
 
-	public HttpEntity<List<AppEntity>> all() {
-		List<AppEntity> apps = dao.all();
-		return ResponseEntity.ok( apps );
+	public HttpEntity<List<TemplateEntity>> all() {
+		List<TemplateEntity> templates = dao.all();
+		return ResponseEntity.ok( templates );
 	}
 
 	@Override
-	public HttpEntity<AppEntity> create( @RequestBody AppEntity entity ) {
-		AppEntity app = dao.store( entity );
-		return ResponseEntity.ok( app );
+	public HttpEntity<TemplateEntity> create( @RequestBody TemplateEntity entity ) {
+		TemplateEntity template = dao.store( entity );
+		return ResponseEntity.ok( template );
 	}
 
 	@Override
-	public HttpEntity<AppEntity> get( @PathVariable("id") Long id ) {
-		Optional<AppEntity> app = dao.get( id );
-		return app.isPresent()
-						 ? new ResponseEntity<>( app.get(), HttpStatus.OK )
+	public HttpEntity<TemplateEntity> get( @PathVariable("id") Long id ) {
+		Optional<TemplateEntity> template = dao.get( id );
+		return template.isPresent()
+						 ? new ResponseEntity<>( template.get(), HttpStatus.OK )
 						 : new ResponseEntity<>( HttpStatus.NOT_FOUND );
 	}
 
 	@Override
-	public HttpEntity<AppEntity> update( @PathVariable("id") Long id, @RequestBody AppEntity entity ) {
+	public HttpEntity<TemplateEntity> update( @PathVariable("id") Long id, @RequestBody TemplateEntity entity ) {
 		entity.setId( id );
-		AppEntity app = dao.store( entity );
-		return ResponseEntity.ok( app );
+		TemplateEntity template = dao.store( entity );
+		return ResponseEntity.ok( template );
 	}
 
 	@Override
