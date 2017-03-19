@@ -35,7 +35,7 @@ angular.module( 'JavaBasics.tpl', ['ngRoute', 'ngResource', 'isteven-multi-selec
 					templateUrl: 'tpl/tpl.html',
 					controller: 'edit'
 				}
-			).otherwise( "/" );
+			);
 			$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 		}
 	)

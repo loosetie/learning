@@ -1,0 +1,20 @@
+<groups xmlns="http://www.isdc.ro/wro">
+	<group name="angular-bootstrap">
+		<css>webjar:css/bootstrap.min.css</css>
+		<css>webjar:isteven-multi-select.css</css>
+		<js>webjar:jquery.min.js</js>
+		<js>webjar:bootstrap.min.js</js>
+		<js>webjar:angular.min.js</js>
+		<js>webjar:angular-route.min.js</js>
+		<js>webjar:angular-resource.min.js</js>
+		<js>webjar:angular-translate.min.js</js>
+		<js>webjar:isteven-multi-select.js</js>
+	</group>
+	<group name="launchpad">
+		<css>classpath:wro/css/launchpad.less</css>
+		<js>classpath:wro/js/basic.js</js>
+		<js>classpath:wro/js/app.js</js>
+		<js>classpath:wro/js/tpl.js</js>
+		<js>classpath:wro/js/main.js</js>
+	</group>
+</groups>

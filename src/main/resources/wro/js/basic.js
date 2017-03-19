@@ -1,4 +1,5 @@
 angular.module( 'JavaBasics.basic', ['ngRoute'] )
+
 	.config(
 		function ( $routeProvider, $httpProvider ) {
 			$routeProvider.when(
