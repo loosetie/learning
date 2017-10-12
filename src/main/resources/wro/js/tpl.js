@@ -8,32 +8,23 @@ angular.module( 'JavaBasics.tpl', ['ngRoute', 'ngResource', 'isteven-multi-selec
 			);
 		}
 	)
-	.factory(
-		'App', function ( $resource ) {
-			return $resource(
-				'/rest/v1/app/:id', {id: "@id"}, {
-					update: {method: 'PUT'}
-				}
-			);
-		}
-	)
 
 	.config(
 		function ( $routeProvider, $httpProvider ) {
 			$routeProvider.when(
 				'/tpl', {
 					templateUrl: 'tpl/tpls.html',
-					controller: 'list'
+					controller: 'tpl-list'
 				}
 			).when(
 				'/tpl/create', {
 					templateUrl: 'tpl/tpl.html',
-					controller: 'create'
+					controller: 'tpl-create'
 				}
 			).when(
 				'/tpl/:id', {
 					templateUrl: 'tpl/tpl.html',
-					controller: 'edit'
+					controller: 'tpl-edit'
 				}
 			);
 			$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
@@ -41,7 +32,7 @@ angular.module( 'JavaBasics.tpl', ['ngRoute', 'ngResource', 'isteven-multi-selec
 	)
 
 	.controller(
-		'list', function ( $scope, $location, Template ) {
+		'tpl-list', function ( $scope, $location, Template ) {
 			var entities, load = function () {
 				entities = Template.query(
 					function () {
@@ -64,7 +55,7 @@ angular.module( 'JavaBasics.tpl', ['ngRoute', 'ngResource', 'isteven-multi-selec
 	)
 
 	.controller(
-		'create', function ( $scope, $location, Template, App ) {
+		'tpl-create', function ( $scope, $location, Template, App ) {
 			var entity = $scope.entity = new Template();
 			var apps = App.query(
 				function () {
@@ -82,7 +73,7 @@ angular.module( 'JavaBasics.tpl', ['ngRoute', 'ngResource', 'isteven-multi-selec
 	)
 
 	.controller(
-		'edit', function ( $scope, $location, $routeParams, Template, App ) {
+		'tpl-edit', function ( $scope, $location, $routeParams, Template, App ) {
 			var ids = [], entity = Template.get(
 				{id: $routeParams.id}, function () {
 					$scope.entity = entity;

@@ -7,7 +7,6 @@
 		<js>webjar:angular.min.js</js>
 		<js>webjar:angular-route.min.js</js>
 		<js>webjar:angular-resource.min.js</js>
-		<js>webjar:angular-translate.min.js</js>
 		<js>webjar:isteven-multi-select.js</js>
 	</group>
 	<group name="launchpad">

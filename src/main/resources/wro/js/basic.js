@@ -74,7 +74,7 @@ angular.module( 'JavaBasics.basic', ['ngRoute'] )
 						$rootScope.authenticated = false;
 					}
 				);
-			}
+			};
 
 			$scope.active = function ( path, strict ) {
 				var p = $location.path();
@@ -82,7 +82,7 @@ angular.module( 'JavaBasics.basic', ['ngRoute'] )
 					p = p.substr( 0, path.length );
 				}
 				return p === path ? 'active' : '';
-			}
+			};
 		}
 	)
 ;

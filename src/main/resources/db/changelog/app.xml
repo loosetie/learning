@@ -14,6 +14,9 @@
             </column>
             <column name="NAME" type="VARCHAR"/>
         </createTable>
+        <createIndex tableName="APP" indexName="APP__ID_IDX">
+            <column name="ID"/>
+        </createIndex>
     </changeSet>
 
 	<changeSet id="app test data" author="ckl" dbms="h2">

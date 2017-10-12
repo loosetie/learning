@@ -16,7 +16,7 @@ import java.util.List;
  */
 @NoArgsConstructor
 @ToString(callSuper = true)
-public class TemplateEntity extends Template {
+public class TemplateEntity extends Template implements HasId {
 
 	private List<AppEntity> apps;
 

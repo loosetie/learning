@@ -1,8 +1,10 @@
 package de.cdiag.ckl.javabasics.rest;
 
 import de.cdiag.ckl.javabasics.dao.CrudDao;
+import de.cdiag.ckl.javabasics.dao.TemplateDao;
 import de.cdiag.ckl.javabasics.entities.TemplateEntity;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,43 +23,12 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/rest/v1/tpl")
 @RequiredArgsConstructor
-public class TemplateRestController implements CrudController<TemplateEntity> {
+public class TemplateRestController extends AbstractRestController<TemplateEntity> {
 
-	private final CrudDao<TemplateEntity> dao;
-
-	public HttpEntity<List<TemplateEntity>> all() {
-		List<TemplateEntity> templates = dao.all();
-		return ResponseEntity.ok( templates );
-	}
+	private final TemplateDao dao;
 
 	@Override
-	public HttpEntity<TemplateEntity> create( @RequestBody TemplateEntity entity ) {
-		TemplateEntity template = dao.store( entity );
-		return ResponseEntity.ok( template );
+	protected CrudDao<TemplateEntity> dao() {
+		return dao;
 	}
-
-	@Override
-	public HttpEntity<TemplateEntity> get( @PathVariable("id") Long id ) {
-		Optional<TemplateEntity> template = dao.get( id );
-		return template.isPresent()
-						 ? new ResponseEntity<>( template.get(), HttpStatus.OK )
-						 : new ResponseEntity<>( HttpStatus.NOT_FOUND );
-	}
-
-	@Override
-	public HttpEntity<TemplateEntity> update( @PathVariable("id") Long id, @RequestBody TemplateEntity entity ) {
-		entity.setId( id );
-		TemplateEntity template = dao.store( entity );
-		return ResponseEntity.ok( template );
-	}
-
-	@Override
-	@Transactional
-	public HttpEntity<?> delete( @PathVariable("id") Long id ) {
-		int affectedRows = dao.delete( id );
-		return affectedRows > 0
-						 ? new ResponseEntity<>( HttpStatus.OK )
-						 : new ResponseEntity<>( HttpStatus.NOT_FOUND );
-	}
-
 }

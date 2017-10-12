@@ -11,7 +11,7 @@ import java.sql.Timestamp;
  * Created by Christian on 18.03.2017.
  */
 @NoArgsConstructor
-public class AppEntity extends App {
+public class AppEntity extends App implements HasId {
 
 	public AppEntity( AppEntity value ) {
 		super( value );

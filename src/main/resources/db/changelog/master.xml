@@ -7,5 +7,6 @@
     <include file="user.xml" relativeToChangelogFile="true"/>
     <include file="app.xml" relativeToChangelogFile="true"/>
 	<include file="template.xml" relativeToChangelogFile="true"/>
+	<include file="launchpad.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

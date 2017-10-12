@@ -14,17 +14,17 @@ angular.module( 'JavaBasics.app', ['ngRoute', 'ngResource'] )
 			$routeProvider.when(
 				'/app', {
 					templateUrl: 'app/apps.html',
-					controller: 'apps'
+					controller: 'app-list'
 				}
 			).when(
 				'/app/create', {
 					templateUrl: 'app/app.html',
-					controller: 'create'
+					controller: 'app-create'
 				}
 			).when(
 				'/app/:id', {
 					templateUrl: 'app/app.html',
-					controller: 'edit'
+					controller: 'app-edit'
 				}
 			);
 			$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
@@ -32,7 +32,7 @@ angular.module( 'JavaBasics.app', ['ngRoute', 'ngResource'] )
 	)
 
 	.controller(
-		'apps', function ( $scope, $location, App ) {
+		'app-list', function ( $scope, $location, App ) {
 			var entities, load = function () {
 				entities = App.query(
 					function () {
@@ -55,7 +55,7 @@ angular.module( 'JavaBasics.app', ['ngRoute', 'ngResource'] )
 	)
 
 	.controller(
-		'create', function ( $scope, $location, App ) {
+		'app-create', function ( $scope, $location, App ) {
 			var entity = $scope.entity = new App();
 			$scope.save = function () {
 				App.save(
@@ -68,7 +68,7 @@ angular.module( 'JavaBasics.app', ['ngRoute', 'ngResource'] )
 	)
 
 	.controller(
-		'edit', function ( $scope, $location, $routeParams, App ) {
+		'app-edit', function ( $scope, $location, $routeParams, App ) {
 			var entity = App.get(
 				{id: $routeParams.id}, function () {
 					$scope.entity = entity;

@@ -1,0 +1,32 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd"
+        logicalFilePath="launchpad">
+
+    <changeSet author="ckl" id="create launchapd">
+        <createTable tableName="LAUNCHPAD">
+            <column name="ID" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="TIMESTAMP" type="TIMESTAMP" defaultValueComputed="now()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="USER" type="BIGINT"/>
+            <column name="TEMPLATE" type="BIGINT"/>
+        </createTable>
+        <createIndex tableName="LAUNCHPAD" indexName="LAUNCHPAD__ID_IDX">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex tableName="LAUNCHPAD" indexName="LAUNCHPAD__USER_IDX">
+            <column name="USER"/>
+        </createIndex>
+        <addForeignKeyConstraint baseTableName="LAUNCHPAD" baseColumnNames="USER" constraintName="LAUNCHPAD__USER_FK"
+                                 referencedTableName="USER"
+                                 referencedColumnNames="ID"/>
+        <addForeignKeyConstraint baseTableName="LAUNCHPAD" baseColumnNames="TEMPLATE"
+                                 constraintName="LAUNCHPAD__TEMPLATE_FK" referencedTableName="TEMPLATE"
+                                 referencedColumnNames="ID"/>
+    </changeSet>
+
+</databaseChangeLog>

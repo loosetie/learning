@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.SelectOnConditionStep;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
@@ -21,6 +22,7 @@ import java.util.Optional;
  * Created by Christian on 18.03.2017.
  */
 @Service
+@Qualifier("template")
 @RequiredArgsConstructor
 public class TemplateDao implements CrudDao<TemplateEntity> {
 
@@ -95,8 +97,8 @@ public class TemplateDao implements CrudDao<TemplateEntity> {
 	}
 
 	private void mergeTemplate( LinkedList<TemplateEntity> result, Record record ) {
-		TemplateEntity tpl = record.into( TemplateRecord.class ).into( TemplateEntity.class );
-		AppEntity app = record.into( AppRecord.class ).into( AppEntity.class );
+		TemplateEntity tpl = record.into( Tables.TEMPLATE ).into( TemplateEntity.class );
+		AppEntity app = record.into( Tables.APP ).into( AppEntity.class );
 
 		TemplateEntity current;
 		if( result.isEmpty() || !result.getLast().getId().equals( tpl.getId() ) ) {
